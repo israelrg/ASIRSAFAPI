@@ -76,3 +76,12 @@ create table curso_manual(
 
 alter table oposiciones modify categoria enum('A','E');
 alter table matriculas modify tipo enum('oficial', 'libre');
+alter table cursos modify profesor int(8);
+
+alter table cursos add constraint fk_profesores_cursos foreign key (profesor) references profesores(dni);
+alter table alumnos add constraint fk_matriculas_alumnos foreign key (dni) references matriculas(dniAlumno);
+alter table matriculas add constraint fk_cursos_matriculas foreign key (codCurso) references cursos(codigocurso);
+alter table curso_oposicion add constraint fk_cursos_curso_oposicion foreign key(codCurso) references cursos(codigocurso); 
+alter table curso_oposicion add constraint fk_oposiciones_curso_oposicion foreign key(codOposicion) references oposiciones(codigo);
+alter table curso_manual add constraint fk_cursos_curso_manual foreign key(codCurso) references cursos(codigocurso);
+alter table curso_manual add constraint fk_manuales_curso_manual foreign key(referencia) references manuales(referencia);
